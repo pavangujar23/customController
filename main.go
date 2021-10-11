@@ -14,7 +14,6 @@ import (
 )
 
 func main() {
-
 	var kubeconfig *string
 	//var master string
 
