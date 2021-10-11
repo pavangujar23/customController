@@ -3,16 +3,26 @@ package main
 import (
 	"flag"
 	"fmt"
+	"path/filepath"
 	"time"
 
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/util/homedir"
 )
 
 func main() {
-	kubeconfig := flag.String("kubeconfig", "/home/pavangujar23/.kube/config", "location to your kubeconfig file")
+
+	var kubeconfig *string
+	//var master string
+
+	home := homedir.HomeDir()
+
+	kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
+
+	// kubeconfig := flag.String("kubeconfig", "/home/pavangujar/.kube/config", "location to your kubeconfig file")
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	if err != nil {
 		// handle error
